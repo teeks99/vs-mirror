@@ -47,10 +47,12 @@ def rename_version(edition, local_path):
 
 def create_zip(dir_name):
     archive = shutil.make_archive(dir_name, "zip", base_dir=dir_name)
+    print(f"Created archive: {archive}")
     return archive
 
 
 def mirror_one(version, edition):
+    print(f"Mirroring Visual Studio {version}, {edition}")
     temp_path = "vs_" + edition + "_" + version
     download(version, edition, temp_path)
     named_path = rename_version(edition, temp_path)
