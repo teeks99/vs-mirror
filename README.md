@@ -1,2 +1,4 @@
 # vs-mirror
-Mirror visual studio installer locally
+A script to download visual studio binaries from Microsoft's servers and zip them up for offline installation.
+
+
