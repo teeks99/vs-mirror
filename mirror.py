@@ -78,7 +78,7 @@ if __name__ == "__main__":
         mirror_versions = args.ver
 
     if args.edition:
-        mirror_editions = args.editions
+        mirror_editions = args.edition
 
     for version in mirror_versions:
         for edition in mirror_editions:
