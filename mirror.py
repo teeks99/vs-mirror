@@ -3,6 +3,7 @@ import subprocess
 import os
 import json
 import shutil
+import argparse
 
 versions = {
     "15":"https://aka.ms/vs/15/release/",
@@ -52,13 +53,33 @@ def create_zip(dir_name):
     return archive
 
 
-def mirror_one(version, edition):
+def mirror_one(version, edition, cleanup=True):
     print(f"Mirroring Visual Studio {version}, {edition}")
     temp_path = "vs_" + edition + "_" + version
     download(version, edition, temp_path)
     named_path = rename_version(edition, temp_path)
     create_zip(named_path)
+    if cleanup:
+        shutil.rmtree(named_path)
 
 
 if __name__ == "__main__":
-    mirror_one("16", "buildtools")
+    mirror_versions = versions.keys()
+    mirror_editions = editions.keys()
+
+    p = argparse.ArgumentParser()
+    p.add_argument('--ver', action="append", help="Visual Studio Version")
+    p.add_argument('--edition', action="append", help="Edition. Can be" +
+                   "community professional enterprise or buildtools")
+
+    args = p.parse_args()
+    
+    if args.ver:
+        mirror_versions = args.ver
+
+    if args.edition:
+        mirror_editions = args.editions
+
+    for version in mirror_versions:
+        for edition in mirror_editions:
+            mirror_one(version, edition)
