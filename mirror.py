@@ -31,7 +31,8 @@ def download(version, edition, local_path, language="en-US"):
 
 def get_version_num(local_path):
     j = None
-    with open(os.path.join(local_path, "ChannelManifest.json"), "r") as f:
+    manifest = os.path.join(local_path, "ChannelManifest.json")
+    with open(manifest, "r", encoding="utf-8") as f:
         j = json.load(f)
     version = j["info"]["productDisplayVersion"]
     return version
